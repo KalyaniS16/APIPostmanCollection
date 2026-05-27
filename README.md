@@ -1,2 +1,2 @@
 # APIPostmanCollection
-Collection
+Collection of API
