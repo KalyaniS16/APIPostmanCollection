@@ -1,0 +1,1664 @@
+{
+  "info": {
+    "_postman_id": "965a4e5d-64d8-46c8-8b98-9253fdb4bb46",
+    "name": "APIsPractice",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27076744"
+    
+  },
+  "item": [
+    {
+      "name": "EmployeeAPIs-CRUDOperation",
+      "item": [
+        {
+          "name": "GetEmployees",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.log(\"Pre-request Script at request level\")"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "console.log(\"Post-request Script at request level\")"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url_env_level}}/smrtemployee/",
+              "host": [
+                "{{base_url_env_level}}"
+              ],
+              "path": [
+                "smrtemployee",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetOneEmployee",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Content-Type header is present\", function () {",
+                  "    pm.response.to.have.header(\"Content-Type\");",
+                  "});",
+                  "pm.test(\"Content-Type header value is application/json\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "pm.test(\"Cookie is present\", function () {",
+                  "    pm.expect(pm.cookies.has(\"cookieName\")).to.be.true;",
+                  "});",
+                  "",
+                  "// Verify response time is less than 2000 ms",
+                  "pm.test(\"Response time is less than 5ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5);",
+                  "});",
+                  "",
+                  "// Print response time in console",
+                  "console.log(\"Response Time: \" + pm.response.responseTime + \" ms\");",
+                  "",
+                  "let jsonData = pm.response.json();",
+                  "// Validate response is an object",
+                  "pm.test(\"Response body is an object\", function () {",
+                  "    pm.expect(jsonData).to.be.an(\"object\");",
+                  "});",
+                  "// Validate fields data types",
+                  "pm.test(\"Validate the data types\", function () {",
+                  "    pm.expect(jsonData.id).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.firstName).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.lastName).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.userName).to.be.a(\"string\"),",
+                  "    pm.expect(jsonData.phone).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.designation).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.location).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.techStack).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"Validate the values\", function () {",
+                  "    pm.expect(jsonData.id).to.equal(\"1\");",
+                  "    pm.expect(jsonData.firstName).to.equal(\"Rahul\");",
+                  "    pm.expect(jsonData.lastName).to.equal(\"Sharma\");",
+                  "    pm.expect(jsonData.userName).to.include(\"@123\");   ",
+                  "    pm.expect(jsonData.techStack).to.have.members([\"java\",\"Selenium\"]);",
+                  "",
+                  "});",
+                  "",
+                  "// JSON Schema Validation",
+                  "pm.test(\"Validate JSON Schema\", function () {",
+                  "    let schema = {",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "            \"id\": { \"type\": \"string\" },",
+                  "            \"firstName\": { \"type\": \"string\" },",
+                  "            \"lastName\": { \"type\": \"string\" },",
+                  "            \"userName\": { \"type\": \"string\" },",
+                  "            \"phone\": { \"type\": \"string\" },",
+                  "            \"designation\": { \"type\": \"string\" },",
+                  "            \"location\": { \"type\": \"string\" },",
+                  "            \"techStack\": {",
+                  "                \"type\": \"array\",",
+                  "                \"items\": {",
+                  "                    \"type\": \"string\"",
+                  "                }",
+                  "            }",
+                  "        },",
+                  "        \"required\": [",
+                  "            \"id\",",
+                  "            \"firstName\",",
+                  "            \"lastName\",",
+                  "            \"userName\",",
+                  "            \"phone\",",
+                  "            \"designation\",",
+                  "            \"location\",",
+                  "            \"techStack\"",
+                  "        ]",
+                  "    };",
+                  "    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url_collection_level}}/smrtemployee/2",
+              "host": [
+                "{{base_url_collection_level}}"
+              ],
+              "path": [
+                "smrtemployee",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AddEmployee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstName\": \"Mrinal\",\n    \"lastName\": \"Shah\",\n    \"userName\": \"Mrinal@789\",\n    \"phone\": \"4565765768\",\n    \"designation\": \"DevopsEngineer\",\n    \"location\": \"Chennai\",\n    \"techStack\": [\n      \"Cloud\",\n      \"APIG\"\n    ]\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url_global_level}}/smrtemployee/",
+              "host": [
+                "{{base_url_global_level}}"
+              ],
+              "path": [
+                "smrtemployee",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateEmployee",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Reshma\",\r\n    \"lastName\": \"Bhatt\",\r\n    \"userName\": \"Reshma@789\",\r\n    \"phone\": \"4565765768\",\r\n    \"designation\": \"DevopsEngineer\",\r\n    \"location\": \"Gudgaon\",\r\n    \"techStack\": [\r\n        \"Cloud\",\r\n        \"APIG\",\r\n        \"PowerBI\"\r\n    ],\r\n    \"id\": \"4\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url_env_level}}/smrtemployee/v5y0HFcIGb4",
+              "host": [
+                "{{base_url_env_level}}"
+              ],
+              "path": [
+                "smrtemployee",
+                "v5y0HFcIGb4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AddEmployee2",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "//creating local variable\r",
+                  "pm.variables.set(\"base_url_local_level\",\"http://localhost:3000\");\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Aditya\",\r\n    \"lastName\": \"Bhatt\",\r\n    \"userName\": \"Aditya@111\",\r\n    \"phone\": \"5667798981\",\r\n    \"designation\": \"Architect\",\r\n    \"location\": \"Chennai\",\r\n    \"techStack\": [\r\n      \"JavaScript\",\r\n      \"AI\"\r\n    ]\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url_local_level}}/smrtemployee/",
+              "host": [
+                "{{base_url_local_level}}"
+              ],
+              "path": [
+                "smrtemployee",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteEmployee",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Aditya\",\r\n    \"lastName\": \"Bhatt\",\r\n    \"userName\": \"Aditya@111\",\r\n    \"phone\": \"5667798981\",\r\n    \"designation\": \"Architect\",\r\n    \"location\": \"Chennai\",\r\n    \"techStack\": [\r\n      \"JavaScript\",\r\n      \"AI\"\r\n    ]\r\n  }"
+            },
+            "url": {
+              "raw": "{{base_url_collection_level}}/smrtemployee/Koex1heYvbo",
+              "host": [
+                "{{base_url_collection_level}}"
+              ],
+              "path": [
+                "smrtemployee",
+                "Koex1heYvbo"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "console.log(\"Pre-request Script at folder level\")"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "console.log(\"Post-request Script at folder level\")"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "EmployeeAPIs-Chaining",
+      "item": [
+        {
+          "name": "API-Chaining",
+          "item": [
+            {
+              "name": "Get Single Employee",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "pm.test(\"Content-Type header is present\", function () {",
+                      "    pm.response.to.have.header(\"Content-Type\");",
+                      "});",
+                      "pm.test(\"Content-Type header value is application/json\", function () {",
+                      "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                      "});",
+                      "pm.test(\"Cookie is present\", function () {",
+                      "    pm.expect(pm.cookies.has(\"cookieName\")).to.be.true;",
+                      "});",
+                      "",
+                      "// Verify response time is less than 2000 ms",
+                      "pm.test(\"Response time is less than 5ms\", function () {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(5);",
+                      "});",
+                      "",
+                      "// Print response time in console",
+                      "console.log(\"Response Time: \" + pm.response.responseTime + \" ms\");",
+                      "",
+                      "let jsonData = pm.response.json();",
+                      "// Validate response is an object",
+                      "pm.test(\"Response body is an object\", function () {",
+                      "    pm.expect(jsonData).to.be.an(\"object\");",
+                      "});",
+                      "// Validate fields data types",
+                      "pm.test(\"Validate the data types\", function () {",
+                      "    pm.expect(jsonData.id).to.be.a(\"string\");",
+                      "    pm.expect(jsonData.firstName).to.be.a(\"string\");",
+                      "    pm.expect(jsonData.lastName).to.be.a(\"string\");",
+                      "    pm.expect(jsonData.userName).to.be.a(\"string\"),",
+                      "    pm.expect(jsonData.phone).to.be.a(\"string\");",
+                      "    pm.expect(jsonData.designation).to.be.a(\"string\");",
+                      "    pm.expect(jsonData.location).to.be.a(\"string\");",
+                      "    pm.expect(jsonData.techStack).to.be.an(\"array\");",
+                      "});",
+                      "",
+                      "pm.test(\"Validate the values\", function () {",
+                      "    pm.expect(jsonData.id).to.equal(\"1\");",
+                      "    pm.expect(jsonData.firstName).to.equal(\"Rahul\");",
+                      "    pm.expect(jsonData.lastName).to.equal(\"Sharma\");",
+                      "    pm.expect(jsonData.userName).to.include(\"@123\");   ",
+                      "    pm.expect(jsonData.techStack).to.have.members([\"java\",\"Selenium\"]);",
+                      "",
+                      "});",
+                      "",
+                      "// JSON Schema Validation",
+                      "pm.test(\"Validate JSON Schema\", function () {",
+                      "    let schema = {",
+                      "        \"type\": \"object\",",
+                      "        \"properties\": {",
+                      "            \"id\": { \"type\": \"string\" },",
+                      "            \"firstName\": { \"type\": \"string\" },",
+                      "            \"lastName\": { \"type\": \"string\" },",
+                      "            \"userName\": { \"type\": \"string\" },",
+                      "            \"phone\": { \"type\": \"string\" },",
+                      "            \"designation\": { \"type\": \"string\" },",
+                      "            \"location\": { \"type\": \"string\" },",
+                      "            \"techStack\": {",
+                      "                \"type\": \"array\",",
+                      "                \"items\": {",
+                      "                    \"type\": \"string\"",
+                      "                }",
+                      "            }",
+                      "        },",
+                      "        \"required\": [",
+                      "            \"id\",",
+                      "            \"firstName\",",
+                      "            \"lastName\",",
+                      "            \"userName\",",
+                      "            \"phone\",",
+                      "            \"designation\",",
+                      "            \"location\",",
+                      "            \"techStack\"",
+                      "        ]",
+                      "    };",
+                      "    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url_collection_level}}/smrtemployee/{{id}}",
+                  "host": [
+                    "{{base_url_collection_level}}"
+                  ],
+                  "path": [
+                    "smrtemployee",
+                    "{{id}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Employee",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstName\": \"Aditya\",\r\n    \"lastName\": \"Bhatt\",\r\n    \"userName\": \"Aditya@111\",\r\n    \"phone\": \"5667798981\",\r\n    \"designation\": \"Architect\",\r\n    \"location\": \"Chennai\",\r\n    \"techStack\": [\r\n      \"JavaScript\",\r\n      \"AI\"\r\n    ]\r\n  }"
+                },
+                "url": {
+                  "raw": "{{base_url_collection_level}}/smrtemployee/{{id}}",
+                  "host": [
+                    "{{base_url_collection_level}}"
+                  ],
+                  "path": [
+                    "smrtemployee",
+                    "{{id}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create new Employee",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = JSON.parse(responseBody);\r",
+                      "pm.environment.set(\"id\", jsonData.id);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"firstName\": \"Lakshman\",\n    \"lastName\": \"Bhagat\",\n    \"userName\": \"Mrinal@789\",\n    \"phone\": \"4565765768\",\n    \"designation\": \"DevopsEngineer\",\n    \"location\": \"Chennai\",\n    \"techStack\": [\n      \"Cloud\",\n      \"APIG\"\n    ]\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url_global_level}}/smrtemployee/",
+                  "host": [
+                    "{{base_url_global_level}}"
+                  ],
+                  "path": [
+                    "smrtemployee",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "GoRest-API-Chaining",
+          "item": [
+            {
+              "name": "CreateEmployee",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "//to create the random emails for the employees use below script : var is keyword \r",
+                      "var random = Math.random().toString(36).substring(2);\r",
+                      "\r",
+                      "// to create diff diff mnames and emails\r",
+                      "var empEmail = \"matt\"+random+\"@gmail.com\";\r",
+                      "var empName = \"Matt\"+random;\r",
+                      "\r",
+                      "// now keep these above data in env variable as that we can use it in env level\r",
+                      "pm.environment.set(\"env_empEmail\", empEmail);\r",
+                      "pm.environment.set(\"env_empName\", empName);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "//now the random id which we got, we need these ids for other requests to perform other requests\r",
+                      "// thus, to capture the id we have to write as below in post-response\r",
+                      "var jsonData = JSON.parse(responseBody);\r",
+                      "\r",
+                      "// set the id in env level \r",
+                      "pm.environment.set(\"env_empId\",jsonData.id);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"{{env_empName}}\",\r\n    \"email\": \"{{env_empEmail}}\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://gorest.co.in/public/v2/users",
+                  "protocol": "https",
+                  "host": [
+                    "gorest",
+                    "co",
+                    "in"
+                  ],
+                  "path": [
+                    "public",
+                    "v2",
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetEmployee",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// validating json fields in response\r",
+                      "pm.test(\"values of json fields\",()=>{\r",
+                      "    pm.expect(pm.response.json().id).to.eql(pm.environment.get(\"env_empId\"));\r",
+                      "    pm.expect(pm.response.json().empEmail).to.eql(pm.environment.get(\"env_empEmail\"));\r",
+                      "    pm.expect(pm.response.json().empName).to.eql(pm.environment.get(\"env_empName\"));\r",
+                      "}\r",
+                      ");"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://gorest.co.in/public/v2/users/{{env_empId}}",
+                  "protocol": "https",
+                  "host": [
+                    "gorest",
+                    "co",
+                    "in"
+                  ],
+                  "path": [
+                    "public",
+                    "v2",
+                    "users",
+                    "{{env_empId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateEmployee",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "\r",
+                      "\r",
+                      "var empEmail = 'a'+pm.environment.get(\"env_empEmail\");\r",
+                      "var empName = 'a'+pm.environment.get(\"env_empName\");\r",
+                      "pm.variables.set(\"n\",empName);\r",
+                      "pm.variables.set(\"e\",empEmail);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = JSON.parse(responseBody);\r",
+                      "\r",
+                      "pm.environment.set(\"env_empEmail\", jsonData.email);\r",
+                      "pm.environment.set(\"env_empName\", jsonData.name);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"{{n}}\",\r\n    \"email\": \"{{e}}\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://gorest.co.in//public/v2/users/{{env_empId}}",
+                  "protocol": "https",
+                  "host": [
+                    "gorest",
+                    "co",
+                    "in"
+                  ],
+                  "path": [
+                    "",
+                    "public",
+                    "v2",
+                    "users",
+                    "{{env_empId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DeleteEmployee",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.environment.unset(\"env_empId\");\r",
+                      "pm.environment.unset(\"env_empName\");\r",
+                      "pm.environment.unset(\"env_empEmail\");"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://gorest.co.in/public/v2/users/{{env_empId}}",
+                  "protocol": "https",
+                  "host": [
+                    "gorest",
+                    "co",
+                    "in"
+                  ],
+                  "path": [
+                    "public",
+                    "v2",
+                    "users",
+                    "{{env_empId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "1839236192c373326293750e40ecce38c9ef1cc390345375273d87e190c53542",
+                "type": "string"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BookAPIs",
+      "item": [
+        {
+          "name": "ListOfBooks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://simple-books-api.glitch.me/books",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "path": [
+                "books"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SingleBook",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://simple-books-api.glitch.me/books/1",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "path": [
+                "books",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "StatusOfBooks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://simple-books-api.glitch.me/status",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "path": [
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SubmitOrders",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accesstoken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"bookId\": 1,\r\n   \"customerName\": \"Ram\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://simple-books-api.glitch.me/orders",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAllOrders",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "57c465df0ffbc046f7e55851c369b7602e757c465df0ffbc046f7e55851c369b7602e71ab6855b4b5ce3da4c56d45581f13",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://simple-books-api.glitch.me/orders",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"clientName\": \"Aditya\", \"clientEmail\": \"adityas@gmail.com\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://simple-books-api.glitch.me/api-clients/",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "path": [
+                "api-clients",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "noauth"
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "BookAPIs -DataDriven",
+      "item": [
+        {
+          "name": "SubmitOrders",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"bookId\": 1,\r\n   \"customerName\": \"Ram\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://simple-books-api.glitch.me/orders",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAllOrders",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://simple-books-api.glitch.me/orders",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "noauth"
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "File Upload",
+      "item": [
+        {
+          "name": "MultipleFileUploads",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "files",
+                  "type": "file",
+                  "uuid": "78e2f78d-42b9-44ea-8d3a-054fc067b6b3",
+                  "src": [
+                    "/C:/Users/Kalyani.Sajanpawar/Downloads/new 17.txt",
+                    "/C:/Users/Kalyani.Sajanpawar/Downloads/new 19.txt",
+                    "/C:/Users/Kalyani.Sajanpawar/Downloads/new 16.txt"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8080/uploadMultipleFiles",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "uploadMultipleFiles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SingleFileUpload",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "fa36b61b-1143-4896-914c-38b602f4c1a8",
+                  "src": "/C:/Users/Kalyani.Sajanpawar/Downloads/new 17.txt"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8080/uploadFile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "uploadFile"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authorizations",
+      "item": [
+        {
+          "name": "OAuth2.0",
+          "item": [
+            {
+              "name": "Request User's github identity",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://github.com/login/oauth/authorize?client_id=Ov23lirkRmC7KYfpbIKD",
+                  "protocol": "https",
+                  "host": [
+                    "github",
+                    "com"
+                  ],
+                  "path": [
+                    "login",
+                    "oauth",
+                    "authorize"
+                  ],
+                  "query": [
+                    {
+                      "key": "client_id",
+                      "value": "Ov23lirkRmC7KYfpbIKD"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Users are redirected back to your site by Github",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://github.com/login/oauth/authorize?client_id=Ov23lirkRmC7KYfpbIKD&client_secret=1e42fc4d01a80e6ebbc79a4225fc0a32cb7adca6&code=66b97488d58c4e0c9c23",
+                  "protocol": "https",
+                  "host": [
+                    "github",
+                    "com"
+                  ],
+                  "path": [
+                    "login",
+                    "oauth",
+                    "authorize"
+                  ],
+                  "query": [
+                    {
+                      "key": "client_id",
+                      "value": "Ov23lirkRmC7KYfpbIKD"
+                    },
+                    {
+                      "key": "client_secret",
+                      "value": "1e42fc4d01a80e6ebbc79a4225fc0a32cb7adca6"
+                    },
+                    {
+                      "key": "code",
+                      "value": "66b97488d58c4e0c9c23"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "BasicAuthentication",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "postman",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://postman-echo.com/basic-auth",
+              "protocol": "https",
+              "host": [
+                "postman-echo",
+                "com"
+              ],
+              "path": [
+                "basic-auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DigestAuthentication",
+          "request": {
+            "auth": {
+              "type": "digest",
+              "digest": [
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "postman",
+                  "type": "string"
+                },
+                {
+                  "key": "algorithm",
+                  "value": "MD5",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://postman-echo.com/digest-auth",
+              "protocol": "https",
+              "host": [
+                "postman-echo",
+                "com"
+              ],
+              "path": [
+                "digest-auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "BearerToken",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": " ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.github.com/user/repos",
+              "protocol": "https",
+              "host": [
+                "api",
+                "github",
+                "com"
+              ],
+              "path": [
+                "user",
+                "repos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "APIKeyAuth_OpenWeatherMap",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "in",
+                  "value": "query",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "appkey",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "7f1cf3b2ad13170ac240afb6e0844d01",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://home.openweathermap.org/data/2.5/forecast/daily?q=Delhi&units=metric&cnt=7",
+              "protocol": "https",
+              "host": [
+                "home",
+                "openweathermap",
+                "org"
+              ],
+              "path": [
+                "data",
+                "2.5",
+                "forecast",
+                "daily"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "Delhi"
+                },
+                {
+                  "key": "units",
+                  "value": "metric"
+                },
+                {
+                  "key": "cnt",
+                  "value": "7"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PetStoreAPIs-XMLFormat",
+      "item": [
+        {
+          "name": "Add New Pet",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Check pet name\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.name).to.eql(\"Tuffy\");",
+                  "});",
+                  "// capture ID as raw string to avoid precision loss",
+                  "var rawId = pm.response.text().match(/\"id\"\\s*:\\s*(\\d+)/)[1];",
+                  "pm.collectionVariables.set(\"petId\", rawId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Pet>\r\n\t<id>0</id>\r\n\t<Category>\r\n\t\t<id>0</id>\r\n\t\t<name>Dog</name>\r\n\t</Category>\r\n\t<name>Tuffy</name>\r\n\t<photoUrls>\r\n\t\t<photoUrl>string</photoUrl>\r\n\t</photoUrls>\r\n\t<tags>\r\n\t\t<Tag>\r\n\t\t\t<id>0</id>\r\n\t\t\t<name>string</name>\r\n\t\t</Tag>\r\n\t</tags>\r\n\t<status>available</status>\r\n</Pet>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find Pet By Id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Check Pet ID\", () => {\r",
+                  "    pm.expect(String(jsonData.id)).to.eql(pm.collectionVariables.get(\"petId\"));\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet/{{petId}}",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet",
+                "{{petId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Updating existing pet details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Check pet name\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.name).to.eql(\"Bruno\");\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Pet>\r\n\t<id>{{petId}}</id>\r\n\t<Category>\r\n\t\t<id>0</id>\r\n\t\t<name>Dog</name>    \r\n\t</Category>\r\n\t<name>Bruno</name>\r\n\t<photoUrls>\r\n\t\t<photoUrl>string</photoUrl>\r\n\t</photoUrls>\r\n\t<tags>\r\n\t\t<Tag>\r\n\t\t\t<id>0</id>\r\n\t\t\t<name>string</name>\r\n\t\t</Tag>\r\n\t</tags>\r\n\t<status>available</status>\r\n</Pet>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Pet",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.collectionVariables.unset(\"petId\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Pet>\r\n\t<id>{{petId}}</id>\r\n\t<Category>\r\n\t\t<id>0</id>\r\n\t\t<name>Dog</name>    \r\n\t</Category>\r\n\t<name>Bruno</name>\r\n\t<photoUrls>\r\n\t\t<photoUrl>string</photoUrl>\r\n\t</photoUrls>\r\n\t<tags>\r\n\t\t<Tag>\r\n\t\t\t<id>0</id>\r\n\t\t\t<name>string</name>\r\n\t\t</Tag>\r\n\t</tags>\r\n\t<status>available</status>\r\n</Pet>"
+            },
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet/{{petId}}",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet",
+                "{{petId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "// console.log(\"Pre-request Script at collection level\")\r",
+          "\r",
+          "//we can create the gloabl variable using script as well\r",
+          "// pm.globals.set(\"url_global\",\"http://localhost:3000\");\r",
+          "\r",
+          "//we can create the environment variable using script as well\r",
+          "// pm.environment.set(\"url_env\",\"http://localhost:3000\");\r",
+          "\r",
+          "//we can create the collection variable using script as well\r",
+          "// pm.collectionVariables.set(\"url_collection\",\"http://localhost:3000\");\r",
+          "\r",
+          "// console.log(pm.collectionVariables.get(\"base_url_collection_level\"));\r",
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "// // console.log(\"Post-request Script at collection level\")\r",
+          "\r",
+          "// //we can delete the created gloabl variable using script as well\r",
+          "// pm.globals.unset(\"url_global\",\"http://localhost:3000\");\r",
+          "\r",
+          "// //we can delete the created environment variable using script as well\r",
+          "// pm.environment.unset(\"url_env\",\"http://localhost:3000\");\r",
+          "\r",
+          "// //we can delete the created collection variable using script as well\r",
+          "// pm.collectionVariables.unset(\"url_collection\",\"http://localhost:3000\");"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url_collection_level",
+      "value": ""
+    },
+    {
+      "key": "accesstoken",
+      "value": ""
+    }
+  ]
+}
